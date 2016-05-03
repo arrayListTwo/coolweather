@@ -6,13 +6,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.util.Log;
-
 public class HttpUtil {
 	
-	public static void sendHttpRequest(final String address, final HttpCallbackListener listener){
+	public static void sendHttpRequest(final String address,
+			final HttpCallbackListener listener) {
 		new Thread(new Runnable() {
-			
 			@Override
 			public void run() {
 				HttpURLConnection connection = null;
@@ -30,20 +28,16 @@ public class HttpUtil {
 						response.append(line);
 					}
 					if (listener != null) {
-						//回调onFinish()方法
-						Log.d("MainActivity", response.toString());
+						// 回调onFinish()方法
 						listener.onFinish(response.toString());
 					}
 				} catch (Exception e) {
 					if (listener != null) {
-						e.printStackTrace();
-						//回调onError()方法
-						Log.d("MainActivity", "回调了异常代码");
+						// 回调onError()方法
 						listener.onError(e);
 					}
-				}finally{
+				} finally {
 					if (connection != null) {
-						//断开连接
 						connection.disconnect();
 					}
 				}
